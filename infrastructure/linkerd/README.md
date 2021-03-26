@@ -9,19 +9,17 @@ brew install step
 Generate the Linkerd trust anchor certificate:
 
 ```sh
-step certificate create identity.linkerd.cluster.local ca.crt ca.key \
+step certificate create root.linkerd.cluster.local ca.crt ca.key \
 --profile root-ca --no-password \
---insecure \
---san identity.linkerd.cluster.local
+--insecure
 ```
 
 Generate the Linkerd issuer certificate and key:
 
 ```sh
 step certificate create identity.linkerd.cluster.local issuer.crt issuer.key \
---ca ca.crt --ca-key ca.key --profile intermediate-ca \
---not-after 8760h --no-password --insecure \
---san identity.linkerd.cluster.local
+--profile intermediate-ca --not-after 8760h --no-password --insecure \
+--ca ca.crt --ca-key ca.key
 ```
 
 Generate a Kubernetes secret with the Linkerd certs:
